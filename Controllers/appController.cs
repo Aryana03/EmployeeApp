@@ -102,5 +102,24 @@ namespace EmployeeApp.Controllers
             return Ok(employeeToReturn);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteEmployee(int id)
+        {
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            _context.Employees.Remove(employee);
+            _context.SaveChanges();
+
+            Console.WriteLine($"Employee with id {id} deleted succesfully!");
+
+            return Ok();
+
+        }
+
     }
 }
